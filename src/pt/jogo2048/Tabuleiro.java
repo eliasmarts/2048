@@ -8,6 +8,8 @@ public class Tabuleiro {
 	
 	public Tabuleiro(int tamX, int tamY) {
 		tab = new Peca[tamX][tamY];
+		this.tamX = tamX;
+		this.tamY = tamY;
 		
 		for (int i = 0; i < tamX; i++)
 			for (int j = 0; j < tamY; j++) {

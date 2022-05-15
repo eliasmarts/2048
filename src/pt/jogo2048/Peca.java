@@ -43,12 +43,14 @@ public class Peca {
 		for (int i = x - 1; i >= 0; i--) {
 			outroValor = tabuleiro.getValorPeca(i, y);
 			
+			// se bateu em uma peca igual
 			if (outroValor == valor) {
 				tabuleiro.dobrarPeca(i, y);
 				removeu = true;
 				break;
 			}
 			
+			// se bateu em uma peca diferente
 			if (outroValor > 0) {
 				if (i + 1 != x) {
 					tabuleiro.colocarPeca(clone(), i + 1, y);
@@ -57,12 +59,111 @@ public class Peca {
 				break;
 			}
 			
-			
-			/**
-			 * se ta nas bordas do tabuleiro
-			 */
+			// se chegou na borda do tabuleiro
 			if (i == 0) {
 				tabuleiro.colocarPeca(clone(), i, y);
+				removeu = true;
+			}
+		}
+		
+		if (removeu)
+			tabuleiro.removerPeca(x, y);
+	}
+	
+	
+	private void moverBaixo(int x, int y) {
+		int outroValor;
+		boolean removeu = false;
+		for (int i = x + 1; i < tabuleiro.getTamX(); i++) {
+			outroValor = tabuleiro.getValorPeca(i, y);
+			
+			// se bateu em uma peca igual
+			if (outroValor == valor) {
+				tabuleiro.dobrarPeca(i, y);
+				removeu = true;
+				break;
+			}
+			
+			// se bateu em uma peca diferente
+			if (outroValor > 0) {
+				if (i - 1 != x) {
+					tabuleiro.colocarPeca(clone(), i - 1, y);
+					removeu = true;
+				}
+				break;
+			}
+			
+			// se chegou na borda do tabuleiro
+			if (i == tabuleiro.getTamX() - 1) {
+				tabuleiro.colocarPeca(clone(), i, y);
+				removeu = true;
+			}
+		}
+		
+		if (removeu)
+			tabuleiro.removerPeca(x, y);
+	}
+	
+	
+	private void moverEsquerda(int x, int y) {
+		int outroValor;
+		boolean removeu = false;
+		for (int j = y - 1; j >= 0; j--) {
+			outroValor = tabuleiro.getValorPeca(x, j);
+			
+			// se bateu em uma peca igual
+			if (outroValor == valor) {
+				tabuleiro.dobrarPeca(x, j);
+				removeu = true;
+				break;
+			}
+			
+			// se bateu em uma peca diferente
+			if (outroValor > 0) {
+				if (j + 1 != y) {
+					tabuleiro.colocarPeca(clone(), x, j + 1);
+					removeu = true;
+				}
+				break;
+			}
+			
+			// se chegou na borda do tabuleiro
+			if (j == 0) {
+				tabuleiro.colocarPeca(clone(), x, j);
+				removeu = true;
+			}
+		}
+		
+		if (removeu)
+			tabuleiro.removerPeca(x, y);
+	}
+	
+	
+	private void moverDireita(int x, int y) {
+		int outroValor;
+		boolean removeu = false;
+		for (int j = y + 1; j < tabuleiro.getTamY(); j++) {
+			outroValor = tabuleiro.getValorPeca(x, j);
+			
+			// se bateu em uma peca igual
+			if (outroValor == valor) {
+				tabuleiro.dobrarPeca(x, j);
+				removeu = true;
+				break;
+			}
+			
+			// se bateu em uma peca diferente
+			if (outroValor > 0) {
+				if (j - 1 != y) {
+					tabuleiro.colocarPeca(clone(), x, j - 1);
+					removeu = true;
+				}
+				break;
+			}
+			
+			// se chegou na borda do tabuleiro
+			if (j == tabuleiro.getTamY() - 1) {
+				tabuleiro.colocarPeca(clone(), x, j);
 				removeu = true;
 			}
 		}
@@ -79,6 +180,12 @@ public class Peca {
 	public void mover(int x, int y, char direcao) {
 		if (direcao == 'w')
 			moverCima(x, y);
+		else if (direcao == 's')
+			moverBaixo(x, y);
+		else if (direcao == 'a')
+			moverEsquerda(x, y);
+		else
+			moverDireita(x, y);
 	}
 	
 	
