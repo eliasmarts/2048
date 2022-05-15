@@ -116,8 +116,15 @@ public class Tabuleiro {
 		
 		if (numVazio != 0) {
 			Random ale = new Random();
-			Peca novaPeca = new Peca(false, 2);
-			int lugar = ale.nextInt(numVazio), lugarVazioAtual = 0;
+			int lugar = ale.nextInt(numVazio), lugarVazioAtual = 0, valor;
+			
+			// 80% de chance do novo ser 2 e 20% de ser 4
+			if (ale.nextInt(100) <= 80)
+				valor = 2;
+			else
+				valor = 4;
+			
+			Peca novaPeca = new Peca(false, valor);
 			
 			for (int i = 0; i < tamX; i++) {
 				for (int j = 0; j < tamY; j++) {
