@@ -30,7 +30,7 @@ public class ControleJogo {
 
 		while (true) {
 			tabuleiroJogo.imprimeTabuleiro();
-			System.out.println();
+			System.out.println("(w) cima, (s) baixo, (a) esquerda, (d) direita, (q) sair");
 			
 			comando = entrada.next().charAt(0);
 			

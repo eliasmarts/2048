@@ -18,7 +18,9 @@ public class App2048 {
 		tamY = entrada.nextInt();
 		System.out.println();
 		
-		System.out.println("Iniciando jogo");
+		System.out.println("=== Iniciando jogo 2048 ===");
 		controle.jogar(tamX, tamY);
+		
+		entrada.close();
 	}
 }
