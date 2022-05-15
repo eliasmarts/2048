@@ -125,4 +125,52 @@ public class Tabuleiro {
 		
 		return colocou;
 	}
+	
+	
+	private void moverPecasCima() {
+		for (int i = 0; i < tamX; i++)
+			for (int j = 0; j < tamY; j++)
+				if (!tab[i][j].isVazio())
+					tab[i][j].mover(i, j, 'w');
+					
+	}
+	
+
+	private void moverPecasBaixo() {
+		for (int i = tamX - 1; i >= 0; i--)
+			for (int j = 0; j < tamY; j++)
+				if (!tab[i][j].isVazio())
+					tab[i][j].mover(i, j, 's');
+					
+	}
+	
+	
+	private void moverPecasEsquerda() {
+		for (int i = 0; i < tamX; i++)
+			for (int j = 0; j < tamY; j++)
+				if (!tab[i][j].isVazio())
+					tab[i][j].mover(i, j, 'a');
+					
+	}
+	
+	
+	private void moverPecasDireita() {
+		for (int i = 0; i < tamX; i++)
+			for (int j = tamY - 1; j >= 0; j--)
+				if (!tab[i][j].isVazio())
+					tab[i][j].mover(i, j, 'd');
+					
+	}
+	
+	
+	public void moverTodasPecas(char direcao) {
+		if (direcao == 'w')
+			moverPecasCima();
+		else if (direcao == 's')
+			moverPecasBaixo();
+		else if (direcao == 'a')
+			moverPecasEsquerda();
+		else
+			moverPecasDireita();
+	}
 }

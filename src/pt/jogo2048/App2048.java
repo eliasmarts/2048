@@ -13,8 +13,17 @@ public class App2048 {
 		System.out.println();
 		
 		
-		p.mover(2, 2, 'a');
-		g.mover(0, 1, 'd');
+		t.moverTodasPecas('d');
+
+		t.imprimeTabuleiro();
+		
+		System.out.println();
+		t.moverTodasPecas('s');
+
+		t.imprimeTabuleiro();
+		System.out.println();
+		
+		t.moverTodasPecas('a');
 
 		t.imprimeTabuleiro();
 	}
