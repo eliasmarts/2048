@@ -3,27 +3,42 @@ import java.util.Random;
 
 public class Tabuleiro {
 	private Peca tab[][];
+	private int tamX, tamY;
 
 	
-	public Tabuleiro() {
-		tab = new Peca[4][4];
+	public Tabuleiro(int tamX, int tamY) {
+		tab = new Peca[tamX][tamY];
 		
-		for (int i = 0; i < 4; i++)
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < tamX; i++)
+			for (int j = 0; j < tamY; j++) {
 				tab[i][j] = new Peca(true, 0);
 				tab[i][j].setTabuleiro(this);
 			}
 	}
 	
 	
+	public int getTamX() {
+		return tamX;
+	}
+
+
+	public int getTamY() {
+		return tamY;
+	}
+	
+	
+	/**
+	 * se a peca estiver visivel, retorna seu valor, se nao
+	 * estiver retorna -1
+	 */
 	public int getValorPeca(int x, int y) {
-		return tab[x][y].isVazio() ? 0: tab[x][y].getValor();
+		return tab[x][y].isVazio() ? -1: tab[x][y].getValor();
 	}
 	
 	
 	public void imprimeTabuleiro() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < tamX; i++) {
+			for (int j = 0; j < tamY; j++) {
 				if (tab[i][j].isVazio())
 					System.out.print("- ");
 				else
@@ -53,8 +68,8 @@ public class Tabuleiro {
 	public int maiorPeca() {
 		int maior = 0;
 		
-		for (int i = 0; i < 4; i++)
-			for (int j = 0; j < 4; j++)
+		for (int i = 0; i < tamX; i++)
+			for (int j = 0; j < tamY; j++)
 				if (tab[i][j].getValor() > maior)
 					maior = tab[i][j].getValor();
 		
@@ -65,8 +80,8 @@ public class Tabuleiro {
 	private int contarLugaresVazios() {
 		int vazios = 0;
 		
-		for (int i = 0; i < 4; i++)
-			for (int j = 0; j < 4; j++)
+		for (int i = 0; i < tamX; i++)
+			for (int j = 0; j < tamY; j++)
 				if (tab[i][j].isVazio())
 					vazios++;
 		
@@ -88,8 +103,8 @@ public class Tabuleiro {
 			Peca novaPeca = new Peca(false, 2);
 			int lugar = ale.nextInt(numVazio), lugarVazioAtual = 0;
 			
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < tamX; i++) {
+				for (int j = 0; j < tamY; j++) {
 					if (!tab[i][j].isVazio())
 						continue;
 	
