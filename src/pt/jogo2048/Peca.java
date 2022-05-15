@@ -1,27 +1,15 @@
 package pt.jogo2048;
 
 public class Peca {
-	private boolean vazio;
 	private int valor;
 	private Tabuleiro tabuleiro;
 
 	
-	public Peca(boolean vazio, int valor) {
-		this.vazio = vazio;
+	public Peca(int valor) {
 		this.valor = valor;
 	}
+
 	
-	
-	public boolean isVazio() {
-		return vazio;
-	}
-
-
-	public void setVazio(boolean vazio) {
-		this.vazio = vazio;
-	}
-
-
 	public int getValor() {
 		return valor;
 	}
@@ -53,7 +41,7 @@ public class Peca {
 			// se bateu em uma peca diferente
 			if (outroValor > 0) {
 				if (i + 1 != x) {
-					tabuleiro.colocarPeca(clone(), i + 1, y);
+					tabuleiro.colocarPeca(this, i + 1, y);
 					removeu = true;
 				}
 				break;
@@ -61,7 +49,7 @@ public class Peca {
 			
 			// se chegou na borda do tabuleiro
 			if (i == 0) {
-				tabuleiro.colocarPeca(clone(), i, y);
+				tabuleiro.colocarPeca(this, i, y);
 				removeu = true;
 			}
 		}
@@ -87,7 +75,7 @@ public class Peca {
 			// se bateu em uma peca diferente
 			if (outroValor > 0) {
 				if (i - 1 != x) {
-					tabuleiro.colocarPeca(clone(), i - 1, y);
+					tabuleiro.colocarPeca(this, i - 1, y);
 					removeu = true;
 				}
 				break;
@@ -95,7 +83,7 @@ public class Peca {
 			
 			// se chegou na borda do tabuleiro
 			if (i == tabuleiro.getTamX() - 1) {
-				tabuleiro.colocarPeca(clone(), i, y);
+				tabuleiro.colocarPeca(this, i, y);
 				removeu = true;
 			}
 		}
@@ -121,7 +109,7 @@ public class Peca {
 			// se bateu em uma peca diferente
 			if (outroValor > 0) {
 				if (j + 1 != y) {
-					tabuleiro.colocarPeca(clone(), x, j + 1);
+					tabuleiro.colocarPeca(this, x, j + 1);
 					removeu = true;
 				}
 				break;
@@ -129,7 +117,7 @@ public class Peca {
 			
 			// se chegou na borda do tabuleiro
 			if (j == 0) {
-				tabuleiro.colocarPeca(clone(), x, j);
+				tabuleiro.colocarPeca(this, x, j);
 				removeu = true;
 			}
 		}
@@ -155,7 +143,7 @@ public class Peca {
 			// se bateu em uma peca diferente
 			if (outroValor > 0) {
 				if (j - 1 != y) {
-					tabuleiro.colocarPeca(clone(), x, j - 1);
+					tabuleiro.colocarPeca(this, x, j - 1);
 					removeu = true;
 				}
 				break;
@@ -163,7 +151,7 @@ public class Peca {
 			
 			// se chegou na borda do tabuleiro
 			if (j == tabuleiro.getTamY() - 1) {
-				tabuleiro.colocarPeca(clone(), x, j);
+				tabuleiro.colocarPeca(this, x, j);
 				removeu = true;
 			}
 		}
@@ -191,10 +179,5 @@ public class Peca {
 	
 	public void dobrar() {
 		valor *= 2;
-	}
-	
-	
-	public Peca clone() {
-		return new Peca(vazio, valor);
 	}
 }

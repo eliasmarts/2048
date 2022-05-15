@@ -2,6 +2,7 @@ package pt.jogo2048;
 import java.util.Random;
 
 public class Tabuleiro {
+	// matriz de pecas, null representa casas vazias
 	private Peca tab[][];
 	private int tamX, tamY;
 
@@ -12,10 +13,8 @@ public class Tabuleiro {
 		this.tamY = tamY;
 		
 		for (int i = 0; i < tamX; i++)
-			for (int j = 0; j < tamY; j++) {
-				tab[i][j] = new Peca(true, 0);
-				tab[i][j].setTabuleiro(this);
-			}
+			for (int j = 0; j < tamY; j++)
+				tab[i][j] = null;
 	}
 	
 	
@@ -29,12 +28,16 @@ public class Tabuleiro {
 	}
 	
 	
+	public boolean isVazio(int x, int y) {
+		return tab[x][y] == null;
+	}
+	
 	/**
 	 * se a peca estiver visivel, retorna seu valor, se nao
 	 * estiver retorna -1
 	 */
 	public int getValorPeca(int x, int y) {
-		return tab[x][y].isVazio() ? -1: tab[x][y].getValor();
+		return tab[x][y] == null ? -1: tab[x][y].getValor();
 	}
 	
 	
@@ -55,7 +58,7 @@ public class Tabuleiro {
 
 		for (int i = 0; i < tamX; i++) {
 			for (int j = 0; j < tamY; j++) {
-				if (tab[i][j].isVazio())
+				if (isVazio(i, j))
 					System.out.print(fill("-", tamF));
 				else
 					System.out.print(fill(Integer.toString(tab[i][j].getValor()), tamF));
@@ -72,7 +75,7 @@ public class Tabuleiro {
 	
 	
 	public void removerPeca(int x, int y) {
-		tab[x][y].setVazio(true);
+		tab[x][y] = null;
 	}
 	
 	
@@ -86,7 +89,7 @@ public class Tabuleiro {
 		
 		for (int i = 0; i < tamX; i++)
 			for (int j = 0; j < tamY; j++)
-				if (tab[i][j].getValor() > maior)
+				if (!isVazio(i, j) && tab[i][j].getValor() > maior)
 					maior = tab[i][j].getValor();
 		
 		return maior;
@@ -98,7 +101,7 @@ public class Tabuleiro {
 		
 		for (int i = 0; i < tamX; i++)
 			for (int j = 0; j < tamY; j++)
-				if (tab[i][j].isVazio())
+				if (isVazio(i, j))
 					vazios++;
 		
 		return vazios;
@@ -124,11 +127,11 @@ public class Tabuleiro {
 			else
 				valor = 4;
 			
-			Peca novaPeca = new Peca(false, valor);
+			Peca novaPeca = new Peca(valor);
 			
 			for (int i = 0; i < tamX; i++) {
 				for (int j = 0; j < tamY; j++) {
-					if (!tab[i][j].isVazio())
+					if (!isVazio(i, j))
 						continue;
 	
 					if (lugarVazioAtual == lugar) {
@@ -151,7 +154,7 @@ public class Tabuleiro {
 	private void moverPecasCima() {
 		for (int i = 0; i < tamX; i++)
 			for (int j = 0; j < tamY; j++)
-				if (!tab[i][j].isVazio())
+				if (!isVazio(i, j))
 					tab[i][j].mover(i, j, 'w');
 					
 	}
@@ -160,7 +163,7 @@ public class Tabuleiro {
 	private void moverPecasBaixo() {
 		for (int i = tamX - 1; i >= 0; i--)
 			for (int j = 0; j < tamY; j++)
-				if (!tab[i][j].isVazio())
+				if (!isVazio(i, j))
 					tab[i][j].mover(i, j, 's');
 					
 	}
@@ -169,7 +172,7 @@ public class Tabuleiro {
 	private void moverPecasEsquerda() {
 		for (int i = 0; i < tamX; i++)
 			for (int j = 0; j < tamY; j++)
-				if (!tab[i][j].isVazio())
+				if (!isVazio(i, j))
 					tab[i][j].mover(i, j, 'a');
 					
 	}
@@ -178,7 +181,7 @@ public class Tabuleiro {
 	private void moverPecasDireita() {
 		for (int i = 0; i < tamX; i++)
 			for (int j = tamY - 1; j >= 0; j--)
-				if (!tab[i][j].isVazio())
+				if (!isVazio(i, j))
 					tab[i][j].mover(i, j, 'd');
 					
 	}
