@@ -38,13 +38,27 @@ public class Tabuleiro {
 	}
 	
 	
+	private String fill(String s, int tam) {
+		String nova = s;
+		
+		for (int i = 0; i < tam - s.length(); i++)
+			nova += " ";
+		
+		return nova;
+	}
+	
 	public void imprimeTabuleiro() {
+		int maiorP = maiorPeca();
+		String s = Integer.toString(maiorP);
+		// quantos espacos deve ter para aparecer alinhado
+		int tamF = s.length() + 1;
+
 		for (int i = 0; i < tamX; i++) {
 			for (int j = 0; j < tamY; j++) {
 				if (tab[i][j].isVazio())
-					System.out.print("- ");
+					System.out.print(fill("-", tamF));
 				else
-					System.out.print(tab[i][j].getValor() + " ");
+					System.out.print(fill(Integer.toString(tab[i][j].getValor()), tamF));
 			 }
 			System.out.println();
 		}
