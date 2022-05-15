@@ -1,4 +1,5 @@
 package pt.jogo2048;
+import java.util.Random;
 
 public class Tabuleiro {
 	private Peca tab[][];
@@ -58,5 +59,53 @@ public class Tabuleiro {
 					maior = tab[i][j].getValor();
 		
 		return maior;
+	}
+	
+	
+	private int contarLugaresVazios() {
+		int vazios = 0;
+		
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				if (tab[i][j].isVazio())
+					vazios++;
+		
+		return vazios;
+	}
+	
+	
+	/**
+	 * se exitistirem lugares vazios, gera um numero aleatorio n, 
+	 * busca o enésimo lugar, coloca a peca e retorna true.
+	 * se não existir retorna false.
+	 */
+	public boolean colocarPecaAleatoria() {
+		int numVazio = contarLugaresVazios();
+		boolean colocou = false;
+		
+		if (numVazio != 0) {
+			Random ale = new Random();
+			Peca novaPeca = new Peca(false, 2);
+			int lugar = ale.nextInt(numVazio), lugarVazioAtual = 0;
+			
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (!tab[i][j].isVazio())
+						continue;
+	
+					if (lugarVazioAtual == lugar) {
+						colocarPeca(novaPeca, i, j);
+						colocou = true;
+						break;
+					}
+					lugarVazioAtual++;
+				}
+				if (colocou)
+					break;
+			}
+				
+		}
+		
+		return colocou;
 	}
 }
