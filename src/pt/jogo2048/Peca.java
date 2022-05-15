@@ -3,11 +3,15 @@ package pt.jogo2048;
 public class Peca {
 	private boolean vazio;
 	private int valor;
+	private Tabuleiro tabuleiro;
+
+
 	
 
-	public Peca() {
-		this.vazio = true;
-		this.valor = 0;
+
+	public Peca(boolean vazio, int valor) {
+		this.vazio = vazio;
+		this.valor = valor;
 	}
 	
 	
@@ -31,7 +35,16 @@ public class Peca {
 	}
 	
 	
-	public void mover(char direcao) {
+	public void setTabuleiro(Tabuleiro tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+	
+	
+	/**
+	 * Recebe a posicao atual da peca (x, y) e a direcao do movimento
+	 * e move a peca
+	 */
+	public void mover(int x, int y, char direcao) {
 		
 	}
 	
@@ -42,9 +55,6 @@ public class Peca {
 	
 	
 	public Peca clone() {
-		Peca c = new Peca();
-		c.setVazio(isVazio());
-		c.setValor(getValor());
-		return c;
+		return new Peca(vazio, valor);
 	}
 }
