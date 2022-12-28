@@ -1,10 +1,11 @@
-package pt.jogo2048;
+package pt.jogo2048.jogo;
 import java.util.Random;
 
 public class Tabuleiro {
 	// matriz de pecas, null representa casas vazias
 	private Peca tab[][];
 	private int tamX, tamY;
+	
 
 	
 	public Tabuleiro(int tamX, int tamY) {

@@ -1,4 +1,4 @@
-package pt.jogo2048;
+package pt.jogo2048.jogo;
 
 public class Peca {
 	private int valor;

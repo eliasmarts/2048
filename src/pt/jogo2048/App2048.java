@@ -2,25 +2,13 @@ package pt.jogo2048;
 
 import java.util.Scanner;
 
+import pt.jogo2048.UI.TelaJogo;
+
 public class App2048 {
 	
 	public static void main(String[] args) {
-		Scanner entrada = new Scanner(System.in);
-		ControleJogo controle = new ControleJogo();
-		int tamX, tamY;
+		TelaJogo tela = new TelaJogo(4, 4);
 		
-		System.out.println("Escolha o tamanho do tabuleiro");
-
-		System.out.print("Linhas: ");
-		tamX = entrada.nextInt();
-		
-		System.out.print("Colunas: ");
-		tamY = entrada.nextInt();
-		System.out.println();
-		
-		System.out.println("=== Iniciando jogo 2048 ===");
-		controle.jogar(tamX, tamY);
-		
-		entrada.close();
+		tela.iniciaJogo();
 	}
 }
