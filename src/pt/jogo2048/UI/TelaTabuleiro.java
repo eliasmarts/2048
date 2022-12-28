@@ -9,17 +9,18 @@ import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import pt.jogo2048.jogo.ControleJogo;
+import pt.jogo2048.jogo.IControleJogo;
 import pt.jogo2048.jogo.Tabuleiro;
 
 public class TelaTabuleiro extends JPanel {
+	private static final long serialVersionUID = -8950615515098707709L;
 	private Tabuleiro tabuleiro;
 	private ViewPeca[][] pecas;
-	private ControleJogo controle;
+	private IControleJogo controle;
 	private TelaJogo telaJogo;
 	private int x, y;
 
-	public TelaTabuleiro(ControleJogo controle, TelaJogo telaJogo) {
+	public TelaTabuleiro(IControleJogo controle, TelaJogo telaJogo) {
 		this.tabuleiro = controle.getTabuleiroJogo();
 		this.controle = controle;
 		this.telaJogo = telaJogo;
@@ -48,7 +49,7 @@ public class TelaTabuleiro extends JPanel {
 		}
 	}
 
-	public void atualiza() {
+	protected void atualiza() {
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 				pecas[i][j].atualiza(tabuleiro, i, j);
@@ -60,6 +61,7 @@ public class TelaTabuleiro extends JPanel {
 	
 	
 	private class Move extends AbstractAction {
+		private static final long serialVersionUID = 6665069484280622954L;
 		private char direction;
 		private TelaTabuleiro tela;
 		
@@ -97,7 +99,7 @@ public class TelaTabuleiro extends JPanel {
 
 
 
-	public void jogar(char direction) {
+	protected void jogar(char direction) {
 		controle.movimento(direction);
 		telaJogo.atualiza(controle.getEstado());
 		atualiza();

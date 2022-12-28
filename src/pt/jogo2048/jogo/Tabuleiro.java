@@ -42,50 +42,23 @@ public class Tabuleiro {
 	}
 	
 	
-	private String fill(String s, int tam) {
-		String nova = s;
-		
-		for (int i = 0; i < tam - s.length(); i++)
-			nova += " ";
-		
-		return nova;
-	}
-	
-	public void imprimeTabuleiro() {
-		int maiorP = maiorPeca();
-		String s = Integer.toString(maiorP);
-		// quantos espacos deve ter para aparecer alinhado
-		int tamF = s.length() + 1;
-
-		for (int i = 0; i < tamX; i++) {
-			for (int j = 0; j < tamY; j++) {
-				if (isVazio(i, j))
-					System.out.print(fill("-", tamF));
-				else
-					System.out.print(fill(Integer.toString(tab[i][j].getValor()), tamF));
-			 }
-			System.out.println();
-		}
-	}
-	
-	
-	public void colocarPeca(Peca p, int x, int y) {
+	protected void colocarPeca(Peca p, int x, int y) {
 		p.setTabuleiro(this);
 		tab[x][y] = p;
 	}
 	
 	
-	public void removerPeca(int x, int y) {
+	protected void removerPeca(int x, int y) {
 		tab[x][y] = null;
 	}
 	
 	
-	public void dobrarPeca(int x, int y) {
+	protected void dobrarPeca(int x, int y) {
 		tab[x][y].dobrar();
 	}
 	
 	
-	public int maiorPeca() {
+	protected int maiorPeca() {
 		int maior = 0;
 		
 		for (int i = 0; i < tamX; i++)
@@ -114,7 +87,7 @@ public class Tabuleiro {
 	 * busca o enésimo lugar, coloca a peca e retorna true.
 	 * se não existir retorna false.
 	 */
-	public boolean colocarPecaAleatoria() {
+	protected boolean colocarPecaAleatoria() {
 		int numVazio = contarLugaresVazios();
 		boolean colocou = false;
 		
@@ -188,14 +161,16 @@ public class Tabuleiro {
 	}
 	
 	
-	public void moverTodasPecas(char direcao) {
+	protected void moverTodasPecas(char direcao) {
 		if (direcao == 'w')
 			moverPecasCima();
 		else if (direcao == 's')
 			moverPecasBaixo();
 		else if (direcao == 'a')
 			moverPecasEsquerda();
-		else
+		else if (direcao == 'd')
 			moverPecasDireita();
+		else
+			throw new IllegalArgumentException(direcao + " nao e um movimento valido");
 	}
 }

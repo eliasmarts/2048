@@ -10,17 +10,17 @@ public class Peca {
 	}
 
 	
-	public int getValor() {
+	protected int getValor() {
 		return valor;
 	}
 	
 	
-	public void setValor(int valor) {
+	protected void setValor(int valor) {
 		this.valor = valor;
 	}
 	
 	
-	public void setTabuleiro(Tabuleiro tabuleiro) {
+	protected void setTabuleiro(Tabuleiro tabuleiro) {
 		this.tabuleiro = tabuleiro;
 	}
 	
@@ -165,7 +165,7 @@ public class Peca {
 	 * Recebe a posicao atual da peca (x, y) e a direcao do movimento
 	 * e move a peca
 	 */
-	public void mover(int x, int y, char direcao) {
+	protected void mover(int x, int y, char direcao) {
 		if (direcao == 'w')
 			moverCima(x, y);
 		else if (direcao == 's')
@@ -177,7 +177,7 @@ public class Peca {
 	}
 	
 	
-	public void dobrar() {
+	protected void dobrar() {
 		valor *= 2;
 	}
 }

@@ -1,33 +1,32 @@
 package pt.jogo2048.UI;
 
+import java.io.Serializable;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import pt.jogo2048.jogo.ControleJogo;
 import pt.jogo2048.jogo.EstadoJogo;
+import pt.jogo2048.jogo.IControleJogo;
 
-public class TelaJogo extends JFrame {
-	private ControleJogo controle;
+public class TelaJogo extends JFrame implements ITelaJogo, Serializable {
+	private static final long serialVersionUID = 2237390651565424182L;
 	private TelaTabuleiro tela;
-
-	public TelaJogo(int tamX, int tamY) {
-		controle = new ControleJogo(tamX, tamY);
-		
-		setSize(800, 800);
-		
-		tela = new TelaTabuleiro(controle, this);
-		
-		add(tela);
-		
-		
+	private IControleJogo controle;
+	
+	public TelaJogo() {
+		super();
 	}
 	
 	
 	public void iniciaJogo() {
+		if (controle == null)
+			throw new IllegalStateException("Esse componente precisa ser conectado com um IControleJogo");
+		
 		controle.iniciaJogo();
-		atualiza();
+		tela = new TelaTabuleiro(controle, this);
+		add(tela);
 		
-		
+		setSize(800, 800);
 		setVisible(true);
 	}
 	
@@ -36,7 +35,7 @@ public class TelaJogo extends JFrame {
 	}
 
 
-	public void atualiza(EstadoJogo estado) {
+	protected void atualiza(EstadoJogo estado) {
 		if (estado == EstadoJogo.GANHOU) {
 			remove(tela);
 			add(new JLabel("Voce ganhou"));
@@ -48,5 +47,10 @@ public class TelaJogo extends JFrame {
 		
 		revalidate();
 		repaint();
+	}
+
+	@Override
+	public void connect(IControleJogo controle) {
+		this.controle = controle;
 	}
 }
