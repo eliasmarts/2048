@@ -50,6 +50,8 @@ public class TelaTabuleiro extends JPanel {
 	}
 
 	protected void atualiza() {
+		tabuleiro = controle.getTabuleiroJogo();
+		
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 				pecas[i][j].atualiza(tabuleiro, i, j);
@@ -101,8 +103,7 @@ public class TelaTabuleiro extends JPanel {
 
 	protected void jogar(char direction) {
 		controle.movimento(direction);
-		telaJogo.atualiza(controle.getEstado());
-		atualiza();
+		telaJogo.atualiza();
 	}
 	
 }
