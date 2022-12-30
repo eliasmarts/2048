@@ -1,2 +1,2 @@
-Jogo 2048 com tabuleiro de tamanho variável implementado no terminal usando Java
+Jogo 2048 implementado com interface gráfica usando Java
 Movimentos com w, a, s, d
