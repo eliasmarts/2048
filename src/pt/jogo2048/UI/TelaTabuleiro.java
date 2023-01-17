@@ -9,33 +9,35 @@ import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import pt.jogo2048.jogo.EstadoJogo;
 import pt.jogo2048.jogo.IControleJogo;
 import pt.jogo2048.jogo.Tabuleiro;
 
-public class TelaTabuleiro extends JPanel {
+public class TelaTabuleiro extends Tela {
 	private static final long serialVersionUID = -8950615515098707709L;
-	private Tabuleiro tabuleiro;
 	private ViewPeca[][] pecas;
-	private IControleJogo controle;
-	private TelaJogo telaJogo;
 	private int x, y;
-
-	public TelaTabuleiro(IControleJogo controle, TelaJogo telaJogo) {
-		this.tabuleiro = controle.getTabuleiroJogo();
-		this.controle = controle;
-		this.telaJogo = telaJogo;
-		
-		addLabels();
-		
-		addMoves();
-		atualiza();
-	}
+	private Tela telaFim;
+	private Tabuleiro tabuleiro;
+	
+	
 
 	
 
+	public TelaTabuleiro(Jogo2048UI jogo) {
+		super(jogo);
+		
+		jogo.getControleJogo().iniciaJogo();
+		
+		this.tabuleiro = jogo.getControleJogo().getTabuleiroJogo();
+		
+		addLabels();
+		addMoves();
+	}
+
 	private void addLabels() {
-		this.x = tabuleiro.getTamX();
-		this.y = tabuleiro.getTamY();
+		x = tabuleiro.getTamX();
+		y = tabuleiro.getTamY();
 		pecas = new ViewPeca[x][y];
 		
 		setLayout(new GridLayout(x, y));
@@ -50,7 +52,9 @@ public class TelaTabuleiro extends JPanel {
 	}
 
 	protected void atualiza() {
-		tabuleiro = controle.getTabuleiroJogo();
+		tabuleiro = jogo.getControleJogo().getTabuleiroJogo();
+		
+		
 		
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -59,9 +63,17 @@ public class TelaTabuleiro extends JPanel {
 		}
 		super.revalidate();
 		super.repaint();
+		
+		atualizaEstado();
 	}
 	
 	
+	private void atualizaEstado() {
+		if (jogo.getControleJogo().getEstado() != EstadoJogo.JOGANDO)
+			jogo.mudaTela(telaFim);
+	}
+
+
 	private class Move extends AbstractAction {
 		private static final long serialVersionUID = 6665069484280622954L;
 		private char direction;
@@ -102,8 +114,12 @@ public class TelaTabuleiro extends JPanel {
 
 
 	protected void jogar(char direction) {
-		controle.movimento(direction);
-		telaJogo.atualiza();
+		jogo.getControleJogo().movimento(direction);
+		atualiza();
+	}
+
+	public void setTelaFim(Tela telaFim) {
+		this.telaFim = telaFim;
 	}
 	
 }

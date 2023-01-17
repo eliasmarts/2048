@@ -13,27 +13,24 @@ import javax.swing.JPanel;
 import pt.jogo2048.jogo.EstadoJogo;
 import pt.jogo2048.jogo.IControleJogo;
 
-public class TelaFim extends JPanel {
-	private TelaJogo telaJogo;
-	private IControleJogo controle;
+public class TelaFim extends Tela {
+	private Tela telaInicio;
+	private Tela telaJogo;
 	private JButton renicia, continua;
 	private JLabel text;
 	
 
-	public TelaFim(TelaJogo telaJogo, IControleJogo controle) {
-		super();
-		
+	public TelaFim(Jogo2048UI jogo, Tela telaInicio, Tela telaJogo) {
+		super(jogo);
+		this.telaInicio = telaInicio;
+		this.telaJogo = telaJogo;
 		setLayout(new BorderLayout());
 		
 		addTexto();
-		
 		addBotoes();
-		
-		this.telaJogo = telaJogo;
-		this.controle = controle;
 	}
-	
-	
+
+
 	private void addTexto() {
 		text = new JLabel();
 		text.setFont(new Font("Arial", Font.BOLD, 100));
@@ -54,14 +51,7 @@ public class TelaFim extends JPanel {
 	
 	private void addBotaoContinua(JPanel container) {
 		continua = new JButton("Continuar");
-		continua.addActionListener(new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				telaJogo.continua();
-			}
-			
-		});
+		continua.addActionListener((arg0) -> jogo.mudaTela(telaJogo));
 		continua.setFont(new Font("Arial", Font.BOLD, 30));
 		
 		container.add(continua);
@@ -74,7 +64,8 @@ public class TelaFim extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				telaJogo.renicia();
+				jogo.getControleJogo().iniciaJogo();
+				jogo.mudaTela(telaInicio);
 			}
 			
 		});
@@ -86,7 +77,7 @@ public class TelaFim extends JPanel {
 	
 	
 	protected void atualiza() {
-		if (controle.getEstado() == EstadoJogo.GANHOU) {
+		if (jogo.getControleJogo().getEstado() == EstadoJogo.GANHOU) {
 			text.setText("Voce ganhou");
 			continua.setVisible(true);
 		}
